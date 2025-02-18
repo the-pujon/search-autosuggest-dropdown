@@ -5,12 +5,12 @@ import { BiSearch } from "react-icons/bi"
 // import { Search } from "lucide-react"
 
 const countries = [
-  { value: "singapore", label: "Singapore" },
-  { value: "thailand", label: "Thailand" },
-  { value: "malaysia", label: "Malaysia" },
-  { value: "vietnam", label: "Vietnam" },
-  { value: "indonesia", label: "Indonesia" },
-  { value: "philippines", label: "Philippines" },
+  "singapore",
+  "thailand",
+  "malaysia",
+  "vietnam",
+  "indonesia",
+  "philippines",
   // Add more countries as needed
 ]
 
@@ -28,10 +28,10 @@ export function CountrySearch() {
       return
     }
 
-    const matchedCountry = countries.find((country) => country.label.toLowerCase().startsWith(input.toLowerCase()))
+    const matchedCountry = countries.find((country) => country.toLowerCase().startsWith(input.toLowerCase()))
 
     if (matchedCountry) {
-      setSuggestion(matchedCountry.label.slice(input.length))
+      setSuggestion(matchedCountry.slice(input.length))
     } else {
       setSuggestion("")
     }
@@ -82,21 +82,21 @@ export function CountrySearch() {
       {isFocused && (
         <ul className="absolute w-full mt-1 bg-white border rounded-lg shadow-lg max-h-60 overflow-auto z-50">
           {countries
-            .filter((country) => country.label.toLowerCase().includes(value.toLowerCase()))
+            .filter((country) => country.toLowerCase().includes(value.toLowerCase()))
             .map((country) => (
               <li
-                key={country.value}
+                key={country}
                 onClick={() => {
-                  setValue(country.label)
+                  setValue(country.toLowerCase());
                   setSuggestion("")
-                  inputRef.current?.focus()
+                  // inputRef.current?.focus()
                 }}
-                className="px-4 py-2.5 cursor-pointer hover:bg-gray-50 text-[15px]"
+                className="px-4 py-2.5 cursor-pointer hover:bg-gray-50 text-[15px] capitalize"
               >
-                {country.label}
+                {country}
               </li>
             ))}
-          {countries.filter((country) => country.label.toLowerCase().includes(value.toLowerCase())).length === 0 && (
+          {countries.filter((country) => country.toLowerCase().includes(value.toLowerCase())).length === 0 && (
             <li className="px-4 py-2.5 text-gray-500 text-[15px]">No country found.</li>
           )}
         </ul>
